@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index of shtmu coosaesu</title>
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <div id="nav-placeholder"></div>
+    <script>
+        fetch('/html/nav.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('nav-placeholder').innerHTML = html);
+    </script>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-word">
+                <h1>学院文件</h1>
+                <div class="hero-files">
+                    <ul>
+                        <li><a>文艺部</a></li>
+                        <li><a>青年权益部</a></li>
+                        <li><a>体育部</a></li>
+                        <li><a>影像部</a></li>
+                        <li><a>外联部</a></li>
+                        <li><a>劳动教育部</a></li>
+                        <li><a>实践调研部</a></li>
+                        <li><a>网络运营部</a></li>
+                        <li><a>秘书部</a></li>
+                        <li><a>学术部</a></li>
+                        <li><a>志愿者服务部</a></li>
+                        <li><a>创新创业部</a></li>
+                        <li><a>组织部</a></li>
+                        <li><a>文化活动部</a></li>
+                    </ul>
+                </div>
+                <h1>留言</h1>
+                <div class="hero-note">
+                    <lu>
+                        <li>BananaHux   2025/8/27 14:51<br>
+                            我哩个豆啊，这么多东西要搞，希望服务器能顺利上线吧
+                        </li>
+                    </lu>
+                </div>
+            </div>
+            <div class="hero-show">
+                <h1>近期大型活动</h1>
+                <ul>
+                    <li>
+                        <div class="hero-show-li-word"><p>2025学生会招新</p><p>2025/9/14-2025/10/1</p></div>
+                        <div class="hero-show-li-photo"></div>
+                    </li>
+                    <li>
+                        <div class="hero-show-li-word"><p>五月歌会策划</p><p>2025/9/14-2025/10/1</p></div>
+                        <div class="hero-show-li-photo"></div>
+                    </li>
+                    <li>
+                        <div class="hero-show-li-word"><p>五月歌会策划</p><p>2025/9/14-2025/10/1</p></div>
+                        <div class="hero-show-li-photo"></div>
+                    </li>
+                </ul>
+                <a href="更新日志.txt"><div class="hero-log">点击查看更新日志</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <p>联系方式:邮箱:qq3087857749@163.com/微信:qq3087857749</p>
+    </div>
+</body>
+</html>

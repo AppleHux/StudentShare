@@ -1,0 +1,10 @@
+body{
+  margin:0;
+  background:url(/images/background0.jpg) no-repeat center/cover;
+  background-attachment:fixed;
+  background-size:cover;   
+}
+.container {
+  width: 1152px;
+  margin: 0 auto;
+}

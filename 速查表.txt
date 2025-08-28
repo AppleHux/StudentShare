@@ -1,0 +1,45 @@
+学生会文件站配置速查表（TF 卡仅作备份，运行目录为 ~/webroot）
+
+### 1. 硬件 & 系统
+| 项目       | 说明                                      |
+|------------|-------------------------------------------|
+| 手机型号   | OPPO A59s（已 root）                      |
+| 运行目录   | `~/webroot/`（Termux 内部）               |
+| 备份目录   | `/storage/sdcard1/StudentShare/`（TF 卡，仅做备份/交换） |
+| 网络       | 局域网 IPv4/IPv6，端口 **8080**           |
+
+### 2. 软件栈 & 安装路径
+| 软件   | 安装方式         | 可执行文件路径                                           | 配置文件 |
+|--------|------------------|----------------------------------------------------------|----------|
+| nginx  | `pkg install`    | `/data/data/com.termux/files/usr/sbin/nginx`             | `/data/data/com.termux/files/usr/etc/nginx/nginx.conf` |
+| php-fpm| `pkg install`    | `/data/data/com.termux/files/usr/bin/php-fpm`            | `/data/data/com.termux/files/usr/etc/php-fpm.d/www.conf` |
+| sqlite | `pkg install sqlite` | 无需单独服务，PHP 已内置 `sqlite3` 扩展 | 无 |
+
+### 3. 目录结构（运行目录 ~/webroot）
+```plaintext
+~/webroot
+├── _h5ai/              # h5ai 前端
+├── files/              # 学生会共享资料
+├── images/
+├── index.html
+├── logs/
+├── news/
+├── upload/
+├── web/
+├── users.db            # SQLite 账号数据库（自动生成）
+
+```
+
+### 4. 一键地址 & 启动脚本
+| 用途            | 地址 / 命令 |
+|-----------------|-------------|
+| **浏览器入口**  | `http://[2409:8a30:2841:bd60:e647:90ff:fee3:30d6]:8080/` |
+| **SSH 维护**    | `ssh -p 8022 u0_a112@<手机IP>` |
+| **手动启停**    | `pkill -9 nginx && pkill -9 php-fpm && php-fpm -D && nginx` |
+
+
+6. 已启用的个性化功能
+- ✅ 中文界面、批量下载、顶部搜索  
+- ✅ IPv4/IPv6 双栈监听 8080  
+- ✅ 缩略图、EXIF、文件树、预览全部可用  
+

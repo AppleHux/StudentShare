@@ -1,0 +1,39 @@
+.container{
+    height: 705px;
+}
+.login-ly{
+    position: absolute;
+    width: 336px;
+    height: 427px;
+    background: #987;
+    inset: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.login-h-ly{
+    height: 122px;
+    width: 100%;
+    position: absolute;
+}
+.login-h-ly h2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 24px;
+}
+.form{
+    margin:0;
+    position: absolute;
+    top: 122px;
+    width: 168px;
+    height: 268px;
+    background: #987;
+    inset: 0;
+    margin: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
