@@ -2,6 +2,9 @@
     if(empty($_POST["name"])){
         die("昵称不能为空");
     }
+    if(empty($_POST["pass"])){
+        die("密码不能为空");
+    }
     if($_POST["pass"]!==$_POST["qpass"]){
         die("两次输入的密码不一致");
     }
@@ -10,7 +13,7 @@
     } 
     $pass_hash = password_hash($_POST["pass"], PASSWORD_DEFAULT);
     
-    $dbFile = __DIR__ . '/../users.db';
+    $dbFile = __DIR__ . '/../db/users.db';
     $pdo = new PDO('sqlite:' . $dbFile);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

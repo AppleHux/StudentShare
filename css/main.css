@@ -1,3 +1,7 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
 body{
   margin:0;
   background:url(/images/background0.jpg) no-repeat center/cover;
