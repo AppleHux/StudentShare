@@ -17,16 +17,15 @@
     </script>
     <div class="container">
         <div class="main">
-            <form action="upload.php" method="post" novalidate >
+            <form action="upload.php" method="post" enctype="multipart/form-data" >
                 <div class="word">
                 <input type="file" name="file" placeholder="点击上传文件">
-                <input type="text" name="name" placeholder="所属部门">
-                <input type="text" name="name" placeholder="所属分类">
+                <input type="text" name="department" placeholder="所属部门">
+                <input type="text" name="category" placeholder="所属分类">
                 </div>
-                <button class="button">完成留言</button>
+                <button class="button">点击上传</button>
             </form>
         </div>
     </div>
-    <script src="/note/note.js"></script>
 </body>
 </html>
