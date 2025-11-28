@@ -28,7 +28,8 @@
     try {
     $stmt = $pdo->prepare("INSERT INTO users (name, email, pass_hash) VALUES (?, ?, ?)");
     $stmt->execute([$_POST['name'], $_POST['email'], $pass_hash]);
-    echo '注册成功';
+    echo '注册成功，五秒后进入登录页面';
+    echo '<meta http-equiv="refresh" content="5;url=/login/index.html">';
     } 
     catch (PDOException $e) {
         if ($e->getCode() == 23000) {
