@@ -1,11 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // 必须放在最开头！
 session_start();
 
 // 检查是否登录
 if (!isset($_SESSION['user_id'])) {
     // 没登录就跳转到登录页
-    header('Location: /login/login.html');
+    header('Location: /login/index.html');
     exit;
 }
 
