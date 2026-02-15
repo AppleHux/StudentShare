@@ -1,32 +1,50 @@
 <?php
-session_start();
+    session_start();
 
-$dbFile = __DIR__ . '/../db/users.db';
-$pdo = new PDO('sqlite:' . $dbFile);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // 内容取值
+    $username = trim($_POST["name"] ?? '');
+    $pass = trim($_POST["pass"] ?? '');
+    
+    // 有效性校验
+    if(empty($username)){
+        die("昵称不能为空");
+    }
+    if(empty($pass)){
+        die("密码不能为空");
+    }
 
-// 过滤用户输入
-$login = trim($_POST["name"]);
+    // 连接数据库
+    $db_PATH = __DIR__ . '/../db/main.db';
+    try {
+        $db = new PDO('sqlite:' . $db_PATH);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("数据库连接失败：" . $e->getMessage());
+    }
 
-// 查询时获取用户名
-$stmt = $pdo->prepare(
-    'SELECT id, name, pass_hash FROM users WHERE name = :login OR email = :login LIMIT 1'
-);
-$stmt->execute([':login' => $login]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($user === false) {
-    die('邮箱或昵称不存在');
-}
 
-if (!password_verify($_POST['pass'], $user['pass_hash'])) {
-    die('用户名或密码错误');
-}
+    // 查询获取相关信息并比较密码
+    try {
+        $stmt = $db->prepare(
+            'SELECT id, username, passhash FROM users 
+            WHERE username = :username 
+            LIMIT 1'
+        );
+        $stmt->execute([':username' => $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// 登录成功
-$_SESSION['user_id'] = $user['id'];
-$_SESSION['user_name'] = $user['name'];  // 使用数据库中的用户名
+        if ($user === false) {
+            die('昵称不存在');
+        }
+        if (!password_verify($pass, $user['passhash'])) {
+            die('昵称或密码错误');
+        }
 
-// 使用 header 重定向
-header('Location: /space/index.php');
-exit;
+        $_SESSION['id'] = $user['id'];
+        echo '登录成功，五秒后进入个人空间';
+        echo '<meta http-equiv="refresh" content="5;url=../space/index.php">';
+    } catch (PDOException $e) {
+        die('数据库错误：' . $e->getMessage());
+    }
+    

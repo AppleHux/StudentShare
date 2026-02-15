@@ -1,40 +1,48 @@
 <?php
-    if(empty($_POST["name"])){
+    // 内容取值
+    $username = trim($_POST["name"] ?? '');
+    $email = trim($_POST["email"] ?? '');
+    $pass = trim($_POST["pass"] ?? '');
+    $qpass = trim($_POST["qpass"] ?? '');
+
+    // 有效性校验
+    if(empty($username)){
         die("昵称不能为空");
     }
-    if(empty($_POST["pass"])){
+    if(empty($pass)){
         die("密码不能为空");
     }
-    if($_POST["pass"]!==$_POST["qpass"]){
+    if($pass!==$qpass){
         die("两次输入的密码不一致");
     }
-    if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         die("请输入有效的邮箱格式");
     } 
-    $pass_hash = password_hash($_POST["pass"], PASSWORD_DEFAULT);
     
-    $dbFile = __DIR__ . '/../db/users.db';
-    $pdo = new PDO('sqlite:' . $dbFile);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // 密码加密
+    $passhash = password_hash($pass, PASSWORD_DEFAULT);
 
-    $pdo->exec("
-    CREATE TABLE IF NOT EXISTS users (
-        id        INTEGER PRIMARY KEY AUTOINCREMENT,
-        name      TEXT NOT NULL UNIQUE,
-        email     TEXT NOT NULL UNIQUE,
-        pass_hash TEXT NOT NULL
-    )
-    ");
+    // 连接数据库
+    $db_PATH = __DIR__ . '/../db/main.db';
     try {
-    $stmt = $pdo->prepare("INSERT INTO users (name, email, pass_hash) VALUES (?, ?, ?)");
-    $stmt->execute([$_POST['name'], $_POST['email'], $pass_hash]);
-    echo '注册成功，五秒后进入登录页面';
-    echo '<meta http-equiv="refresh" content="5;url=/login/index.html">';
-    } 
-    catch (PDOException $e) {
-        if ($e->getCode() == 23000) {
-            die('昵称或邮箱已存在');
-        } else {
-        die('数据库错误：' . $e->getMessage());
+        $db = new PDO('sqlite:' . $db_PATH);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("数据库连接失败：" . $e->getMessage());
+    }
+
+    // 预处理与插入
+    try {
+        $stmt = $db->prepare("INSERT INTO users (username, email, passhash) VALUES (?, ?, ?)");
+        $stmt->execute([$username, $email, $passhash]);
+        echo '注册成功，五秒后进入登录页面';
+        echo '<meta http-equiv="refresh" content="5;url=../login/index.html">';
+    } catch (PDOException $e) {
+        if (in_array($e->getCode(), [19, 2067])) {
+            die('昵称已存在');
+        }else {
+            die('数据库错误：' . $e->getMessage());
         }
     }
+
+
