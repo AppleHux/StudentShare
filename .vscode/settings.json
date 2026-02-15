@@ -1,0 +1,7 @@
+{
+    "php.executablePath": "C:\\php-8.4.11-Win32-vs17-x64\\php.exe",
+    "php.validate.executablePath": "C:\\php-8.4.11-Win32-vs17-x64\\php.exe",
+    "remote.extensionKind": {
+        "bmewburn.vscode-intelephense-client": ["ui"]
+    }
+}
