@@ -17,13 +17,17 @@
     </script>
     <div class="container">
         <div class="main">
-            <form action="note.php" method="post" novalidate >
-                <div class="word">
-                <input type="text" name="note" placeholder="没事说两句">
-                <input type="text" name="name" placeholder="昵称">
-                </div>
-                <button class="button">完成留言</button>
-            </form>
+            <div class="push">
+                <form action="push_note.php" method="post" novalidate >
+                    <div class="word">
+                    <input type="text" name="note" placeholder="没事说两句">
+                    </div>
+                    <button class="button">完成留言</button>
+                </form>
+            </div>
+            <div class="pull">
+            <ul id="note"></ul>
+            </div>
         </div>
     </div>
     <script src="/note/note.js"></script>

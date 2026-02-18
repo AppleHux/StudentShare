@@ -6,6 +6,7 @@
   color: #fff;
   display: flex;
   padding: 25px;
+  flex-direction: column;
 }
 input{
     display: block;
@@ -38,4 +39,9 @@ button {
     background: none;
     color: #ddd;
     font-size: 20px;
+}
+.push {
+    width: 100%;
+}.pull {
+    width: 100%;
 }

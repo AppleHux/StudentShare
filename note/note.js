@@ -1,32 +1,19 @@
-window.addEventListener('DOMContentLoaded', fetchNotes);
-
 async function fetchNotes() {
-    try {
-        const res = await fetch('/note/get_note.php');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    // 1. 请求数据
+    const res = await fetch('/note/pull_note.php');
+    const data = await res.json();
 
-        const data = await res.json();
+    // 2. 找到列表容器
+    const list = document.getElementById('note');
+    list.innerHTML = '';  // 清空
 
-        if (data.error) {                // 后端主动返回错误
-            alert('错误：' + data.error);
-            return;
-        }
-        if (!data.messages || data.messages.length === 0) {
-            alert('暂无留言');
-            return;
-        }
-
-        /* 渲染列表 */
-        const list = document.getElementById('user-list');
-        list.innerHTML = '';             // 先清空旧数据
-        data.messages.forEach(msg => {
-            const li = document.createElement('li');
-            li.textContent = `[${msg.id}] ${msg.name} · ${msg.time}: ${msg.note || '(无内容)'}`;
-            list.appendChild(li);
-        });
-
-    } catch (err) {
-        console.error('加载数据失败:', err);
-        alert('网络或服务器异常，无法加载留言');
-    }
+    // 3. 循环添加留言
+    data.messages.forEach(msg => {
+        const li = document.createElement('li');
+        li.textContent = `[${msg.id}] ${msg.username} · ${msg.time}: ${msg.content}`;
+        list.appendChild(li);
+    });
 }
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', fetchNotes);
