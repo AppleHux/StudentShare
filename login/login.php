@@ -14,15 +14,9 @@
     }
 
     // 连接数据库
-<<<<<<< HEAD
     $db_path = __DIR__ . '/../db/main.db';
     try {
         $db = new PDO('sqlite:' . $db_path);
-=======
-    $db_PATH = __DIR__ . '/../db/main.db';
-    try {
-        $db = new PDO('sqlite:' . $db_PATH);
->>>>>>> 117fa25395038868824c9ee824bad9d400f44ccb
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
         die("数据库连接失败：" . $e->getMessage());
